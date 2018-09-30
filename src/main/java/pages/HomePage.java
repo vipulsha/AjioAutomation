@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -13,6 +14,8 @@ public class HomePage extends ParentPage {
 	WebDriver driver;
 	@FindBy(linkText="SIGN IN")  WebElement signInLink;
 	@FindBy(linkText="Join Ajio") WebElement joinJioLink;
+	private static final String CATEGORY_XPATH = "//a[@href='replaceWith']";
+	
 	
 	public HomePage(WebDriver driver) {
 		super(driver);
@@ -36,6 +39,26 @@ public class HomePage extends ParentPage {
 		signInPage.enterPassword(password);
 		signInPage.clickSignInButton();
 	}
-
-
+	
+	public CategoryHomePage clickOnCategory(String categoryName) {
+		categoryName = categoryName.trim().toUpperCase();
+		String finalXpath = null;
+		switch (categoryName) {
+		case "SHOP SALE":
+			finalXpath = CATEGORY_XPATH.replace("replaceWith", "/shop/sale");	
+			break;
+		case "SHOP MEN":
+			finalXpath = CATEGORY_XPATH.replace("replaceWith", "/shop/men");	
+			break;
+		case "SHOP WOMEN":
+			finalXpath = CATEGORY_XPATH.replace("replaceWith", "/shop/women");	
+			break;
+		case "SHOP KIDS":
+			finalXpath = CATEGORY_XPATH.replace("replaceWith", "/shop/kids");	
+		}
+		click(By.xpath(finalXpath));
+		return new CategoryHomePage(driver);
+	}
+	
+	
 }

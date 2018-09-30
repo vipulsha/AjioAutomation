@@ -1,5 +1,8 @@
 package pages.common;
 
+import java.util.List;
+
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -8,19 +11,20 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ParentPage {
 	WebDriverWait wait = null;
 	WebDriver driver;
+	private static final int TIMEOUTS = 30;
 	
 	public ParentPage(WebDriver driver) {
 		this.driver = driver;
-		wait = new WebDriverWait(driver, 30);
+		wait = new WebDriverWait(driver, TIMEOUTS);
 	}
 	
-	public void click(WebElement element) {
+	public void click(Object element) {
 		waitForElementToBeClickable(element).click();
 	}
 	
-	public void enterText(WebElement element, String text) {
+	public void enterText(Object element, String text) {
 		WebElement e = waitForElementToBeVisible(element);
-		e.clear();
+//		e.clear();
 		e.click();
 		e.sendKeys(text);
 	}
@@ -29,15 +33,45 @@ public class ParentPage {
 		return wait.until(ExpectedConditions.visibilityOf(element)).getText();
 	}
 	
-	public WebElement waitForElementToBeClickable(WebElement element) {
-		return wait.until(ExpectedConditions.elementToBeClickable(element));
+	public WebElement waitForElementToBeClickable(Object byOrWebElement) {
+		if (byOrWebElement instanceof WebElement) {
+			return wait.until(ExpectedConditions.elementToBeClickable((WebElement)byOrWebElement));
+		} else if (byOrWebElement instanceof By) {
+			return wait.until(ExpectedConditions.elementToBeClickable((By) byOrWebElement));
+		} else {
+			return null;
+		}
 	}
 	
-	public WebElement waitForElementToBeVisible(WebElement element) {
-		return wait.until(ExpectedConditions.visibilityOf(element));
+	public WebElement waitForElementToBeVisible(Object byOrWebElement) {
+		if (byOrWebElement instanceof WebElement) {
+			return wait.until(ExpectedConditions.visibilityOf((WebElement)byOrWebElement));
+		} else if (byOrWebElement instanceof By) {
+			return wait.until(ExpectedConditions.visibilityOfElementLocated((By) byOrWebElement));
+		} else {
+			return null;
+		}
 	}
 	
-	public boolean waitForElementToBeInVisible(WebElement element) {
-		return wait.until(ExpectedConditions.invisibilityOf(element));
+	public boolean waitForElementToBeInVisible(Object byOrWebElement) {
+		if (byOrWebElement instanceof WebElement) {
+			return wait.until(ExpectedConditions.invisibilityOf((WebElement)byOrWebElement));
+		} else if (byOrWebElement instanceof By) {
+			return wait.until(ExpectedConditions.invisibilityOfElementLocated((By) byOrWebElement));
+		} else {
+			return false;
+		}
+	}
+	
+	public List<WebElement> findElements(By by) {
+		return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(by));
+	}
+	
+	public WebElement waitForChildElement(WebElement parentElement, By byOfChild) {
+		return waitForElementToBeVisible(parentElement).findElement(byOfChild);
+	}
+	
+	public String getDynamicXpath(String rawXpath,String replaceText,String withText) {
+		return rawXpath.replace(replaceText, withText);
 	}
 }

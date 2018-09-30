@@ -16,7 +16,6 @@ import pages.common.ParentPage;
 public class MyAccountPage extends ParentPage {
 
 	// Data Members
-	WebDriver driver;
 	@FindBy(xpath = "//li[text()='ADDRESS BOOK']")
 	WebElement addressBook;
 	@FindBy(id = "viewAddNewAddressBook")
@@ -53,8 +52,7 @@ public class MyAccountPage extends ParentPage {
 	// Constructor
 	public MyAccountPage(WebDriver driver) {
 		super(driver);
-		this.driver = driver;
-		PageFactory.initElements(this.driver, this);
+		PageFactory.initElements(driver, this);
 	}
 
 	// Page Functions
@@ -121,12 +119,12 @@ public class MyAccountPage extends ParentPage {
 	public boolean isAddressPresent(String firstName,String lastName, 
 			String addressLine1,String pinCode,String district,String state,String addressType) {
 		// Get all address elements
-		List<WebElement> addresses = driver.findElements(By.xpath(ADDRESSES_XPATH));
+		List<WebElement> addresses = findElements(By.xpath(ADDRESSES_XPATH));
 
 		for(int i=0; i<addresses.size(); i++) {
 			WebElement address = addresses.get(i);
 			// Name & Address Type
-			WebElement name = address.findElement(By.xpath(ADDRESS_NAME_XPATH));
+			WebElement name = waitForChildElement(address, By.xpath(ADDRESS_NAME_XPATH));
 			String addressName = name.getText();
 			String firstNameTxt = "";
 			String lastNameTxt = "";
@@ -143,13 +141,14 @@ public class MyAccountPage extends ParentPage {
 				continue;
 
 			// Address Line1
-			WebElement addLine1 = address.findElement(By.xpath(ADDRESS_LINE1_XPATH));
+			WebElement addLine1 = waitForChildElement(address, By.xpath(ADDRESS_LINE1_XPATH));
+			
 			String addLine1Txt = addLine1.getText().trim();
 			if (!addressLine1.equals(addLine1Txt))
 				continue;
 
 			// City & State
-			WebElement cityState = address.findElement(By.xpath(CITY_STATE_XPATH));
+			WebElement cityState = waitForChildElement(address, By.xpath(CITY_STATE_XPATH));
 			String cityStateTxt = cityState.getText();
 			String[] split = cityStateTxt.split(",");
 			String cityName = "";
@@ -163,7 +162,7 @@ public class MyAccountPage extends ParentPage {
 				continue;
 
 			// Pin code
-			WebElement pinCodeElement = address.findElement(By.xpath(PINCODE_XPATH));
+			WebElement pinCodeElement = waitForChildElement(address, By.xpath(PINCODE_XPATH));
 			String pinCodeTxt = pinCodeElement.getText();
 			if(!pinCode.equals(pinCodeTxt))
 				continue;
