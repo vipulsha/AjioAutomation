@@ -10,8 +10,7 @@ import pages.common.ParentPage;
 
 public class CheckoutPage extends ParentPage {
 
-	@FindBy(id="paymentbuttontop") WebElement proceedToPaymentButton;
-	
+	@FindBy(xpath="//div[text()='Proceed to Payment']") WebElement proceedToPaymentButton;
 	private static final String PAYMENT_OPTION_XPATH = "//div[@class='fnl-payment-name' and contains(text(),'replaceWith')]";
 	
 	public CheckoutPage(WebDriver driver) {

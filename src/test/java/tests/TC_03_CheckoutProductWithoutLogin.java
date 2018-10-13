@@ -17,14 +17,14 @@ public class TC_03_CheckoutProductWithoutLogin extends ParentTest {
 		HomePage homePage = new HomePage(driver);
 		CategoryHomePage categoryHomePage = homePage.clickOnCategory("SHOP MEN");
 		SearchResultsPage searchResultsPage = categoryHomePage.searchProduct("Denim Jeans");
-		ProductDetailsPage productDetailsPage = searchResultsPage.clickOnProduct("Denim Jeans with Frayed Hems");
-		productDetailsPage.selectColor("BLUE");
-		productDetailsPage.selectSize("32");
+//		ProductDetailsPage productDetailsPage = searchResultsPage.clickOnProduct("Denim Jeans with Frayed Hems");
+		ProductDetailsPage productDetailsPage = searchResultsPage.clickOnProduct(0);
+		productDetailsPage.selectColor("LIGHT BLUE");
+		productDetailsPage.selectSize("26");
 		productDetailsPage.clickAddToBag();
 		ShoppingBagPage shoppingBagPage = productDetailsPage.clickGoToBag();
-		CheckoutPage checkoutPage = shoppingBagPage.clickProceedToShopping();
+		CheckoutPage checkoutPage = shoppingBagPage.clickProceedToShipping();
 		checkoutPage.clickProceedToPayment();
-		
 	}
 	
 }

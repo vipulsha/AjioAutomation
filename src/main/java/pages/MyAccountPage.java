@@ -18,9 +18,9 @@ public class MyAccountPage extends ParentPage {
 	// Data Members
 	@FindBy(xpath = "//li[text()='ADDRESS BOOK']")
 	WebElement addressBook;
-	@FindBy(id = "viewAddNewAddressBook")
+	@FindBy(xpath = "//span[text()='Add new address']")
 	WebElement addAddressLink;
-	@FindBy(name = "postcode")
+	@FindBy(name = "postalCode")
 	WebElement pinCodeTextbox;
 	@FindBy(name = "firstName")
 	WebElement firstNameTextbox;
@@ -34,20 +34,21 @@ public class MyAccountPage extends ParentPage {
 	WebElement districtTextbox;
 	@FindBy(name = "phone")
 	WebElement phoneNoTextbox;
-	@FindBy(id = "saveButton")
+	@FindBy(xpath = "//input[@value='Save']")
 	WebElement saveButton;
-	@FindBy(id = "resetButton")
+	@FindBy(xpath = "//button[text()='Reset']")
 	WebElement resetButton;
-	@FindBy(id = "addAddressTypeHomeSpan")
+/*	@FindBy(id = "addAddressTypeHomeSpan")
 	WebElement homeAddress;
 	@FindBy(id = "addAddressTypeWorkSpan")
 	WebElement workAddress;
-	
-	private final String ADDRESSES_XPATH = "//div[contains(@class,'fnl-my-addaddr')]//div[@class='fnl-ship-address']";
-	private final String ADDRESS_NAME_XPATH = "./div[contains(@class,'fnl-ship-address-name')]";
-	private final String ADDRESS_LINE1_XPATH = "./div[@class='fnl-ship-address-line1']";
-	private final String CITY_STATE_XPATH = "./div[@class='fnl-ship-address-line3'][1]";
-	private final String PINCODE_XPATH = "./div[@class='fnl-ship-address-line3'][2]";
+*/	
+	private final String ADDRESSES_XPATH = "//div[@class='address-section']/div[contains(@class,'inactive-address')]";
+	private final String ADDRESS_NAME_XPATH = ".//span[@class='address-book-user-name']";
+	private final String ADDRESS_LINE1_XPATH = ".//div[@class='address-first']";
+	private final String CITY_XPATH = ".//div[@class='address-third']";
+	private final String STATE_XPATH = ".//div[@class='address-fourth']";
+	private final String PINCODE_XPATH = ".//div[@class='address-fifth']";
 	
 	// Constructor
 	public MyAccountPage(WebDriver driver) {
@@ -92,14 +93,14 @@ public class MyAccountPage extends ParentPage {
 		enterText(phoneNoTextbox, phoneNo);
 	}
 
-	public void selectHomeAddress() {
+/*	public void selectHomeAddress() {
 		click(homeAddress);
 	}
 
 	public void selectWorkAddress() {
 		click(workAddress);
 	}
-
+*/
 	public void clickSaveButton() {
 		int cnt = 1;
 		do {
@@ -128,13 +129,10 @@ public class MyAccountPage extends ParentPage {
 			String addressName = name.getText();
 			String firstNameTxt = "";
 			String lastNameTxt = "";
-			String addType = "";
 			if (StringUtils.isNotBlank(addressName)) {
-				String[] split = addressName.split("\n");
-				String[] split2 = split[0].split(" ");
+				String[] split2 = addressName.split(" ");
 				firstNameTxt = split2[0];
 				lastNameTxt = split2[1];
-				addType = split[1]; 
 			}
 
 			if (!firstName.equals(firstNameTxt) || !lastName.equals(lastNameTxt)) 
@@ -143,27 +141,25 @@ public class MyAccountPage extends ParentPage {
 			// Address Line1
 			WebElement addLine1 = waitForChildElement(address, By.xpath(ADDRESS_LINE1_XPATH));
 			
-			String addLine1Txt = addLine1.getText().trim();
-			if (!addressLine1.equals(addLine1Txt))
+			String addLine1Txt = addLine1.getText().trim().replace(",", "");
+			if (!addressLine1.equalsIgnoreCase(addLine1Txt))
 				continue;
 
 			// City & State
-			WebElement cityState = waitForChildElement(address, By.xpath(CITY_STATE_XPATH));
-			String cityStateTxt = cityState.getText();
-			String[] split = cityStateTxt.split(",");
-			String cityName = "";
-			String stateName = "";
-			if (StringUtils.isNotBlank(cityStateTxt)) {
-				cityName = split[0].trim();
-				stateName = split[1].trim();	
-			}
-
-			if (!cityName.equals(district.toUpperCase()) || !stateName.equals(state.toUpperCase())) 
+			WebElement cityState = waitForChildElement(address, By.xpath(CITY_XPATH));
+			String cityStateTxt = cityState.getText().trim().replace(",", "");
+			if (!cityStateTxt.equalsIgnoreCase(district)) 
+				continue;
+			
+			WebElement stateElement = waitForChildElement(address, By.xpath(STATE_XPATH));
+			String stateTxt = stateElement.getText().trim().replace(",", "");
+			if (!stateTxt.equalsIgnoreCase(state)) 
 				continue;
 
 			// Pin code
 			WebElement pinCodeElement = waitForChildElement(address, By.xpath(PINCODE_XPATH));
 			String pinCodeTxt = pinCodeElement.getText();
+			pinCodeTxt = pinCodeTxt.split("- ")[1];
 			if(!pinCode.equals(pinCodeTxt))
 				continue;
 			else 

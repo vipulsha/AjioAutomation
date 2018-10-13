@@ -10,8 +10,8 @@ import pages.common.ParentPage;
 public class UserHomePage extends ParentPage {
 	// Data Members
 	@FindBy(xpath="//span[@class='sentence-case']") WebElement welcomeMessage;
-	@FindBy(linkText="MY ACCOUNT") WebElement myAccountLink;
-	@FindBy(linkText="SIGN OUT") WebElement signOutLink;
+	@FindBy(linkText="My Account") WebElement myAccountLink;
+	@FindBy(linkText="Sign Out") WebElement signOutLink;
 	
 	// Constructor
 	public UserHomePage(WebDriver driver) {

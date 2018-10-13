@@ -3,6 +3,7 @@ package pages.common;
 import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -73,5 +74,20 @@ public class ParentPage {
 	
 	public String getDynamicXpath(String rawXpath,String replaceText,String withText) {
 		return rawXpath.replace(replaceText, withText);
+	}
+	
+	public List<WebElement> waitForElementsToBeVisible(Object byOrWebElement) {
+		if (byOrWebElement instanceof WebElement) {
+			return wait.until(ExpectedConditions.visibilityOfAllElements((WebElement) byOrWebElement));
+		} else if (byOrWebElement instanceof By) {
+			return wait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy((By)byOrWebElement));
+		} else {
+			return null;
+		}
+	}
+	
+	public void clickThroughJavaScript(WebElement element) {
+		JavascriptExecutor executor = (JavascriptExecutor) (driver);
+		executor.executeScript("arguments[0].click()", element);
 	}
 }

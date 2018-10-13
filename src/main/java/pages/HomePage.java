@@ -12,10 +12,9 @@ public class HomePage extends ParentPage {
 	
 	// Data Members
 	WebDriver driver;
-	@FindBy(linkText="SIGN IN")  WebElement signInLink;
-	@FindBy(linkText="Join Ajio") WebElement joinJioLink;
+	@FindBy(xpath="//*[text()='Sign In / Join AJIO']")  WebElement signInJoinAjioLink;
+//	@FindBy(linkText="Join Ajio") WebElement joinJioLink;
 	private static final String CATEGORY_XPATH = "//a[@href='replaceWith']";
-	
 	
 	public HomePage(WebDriver driver) {
 		super(driver);
@@ -24,20 +23,21 @@ public class HomePage extends ParentPage {
 	}
 
 	// Page functions ==> Member functions
-	public void clickSignInLink() {
-		click(signInLink);
+	public void clickSignInJoinAjioLink() {
+		click(signInJoinAjioLink);
 	}
 	
-	public void clickRegistrationButton() {
+/*	public void clickRegistrationButton() {
 		click(joinJioLink);
 	}
-	
+*/	
 	public void signIn(String emailId, String password) {
-		this.clickSignInLink();
+		this.clickSignInJoinAjioLink();
 		SignInPage signInPage = new SignInPage(this.driver);
 		signInPage.enterEmailId(emailId);
+		signInPage.clickContinueButton();
 		signInPage.enterPassword(password);
-		signInPage.clickSignInButton();
+		signInPage.clickStartShoppingButton();
 	}
 	
 	public CategoryHomePage clickOnCategory(String categoryName) {

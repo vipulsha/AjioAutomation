@@ -8,10 +8,8 @@ import org.openqa.selenium.support.PageFactory;
 import pages.common.ParentPage;
 
 public class ShoppingBagPage extends ParentPage {
-
 	WebDriver driver;
-	 
-	@FindBy(id="shippingbuttontop") WebElement proceedToShoppingButton;
+	@FindBy(xpath="//button[text()='Proceed to shipping']") WebElement proceedToShippingButton;
 	
 	public ShoppingBagPage(WebDriver driver) {
 		super(driver);
@@ -19,8 +17,8 @@ public class ShoppingBagPage extends ParentPage {
 		PageFactory.initElements(driver, this);
 	}
 	
-	public CheckoutPage clickProceedToShopping() {
-		click(proceedToShoppingButton);
+	public CheckoutPage clickProceedToShipping() {
+		click(proceedToShippingButton);
 		return new CheckoutPage(driver);
 	}
 }

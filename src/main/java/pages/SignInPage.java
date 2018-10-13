@@ -10,9 +10,12 @@ import pages.common.ParentPage;
 public class SignInPage extends ParentPage {
 	
 	// Data Members
-	@FindBy(id="j_username") WebElement emailIdTextbox;
-	@FindBy(id="j_password") WebElement passwordTextbox;
+	@FindBy(name="username") WebElement emailIdTextbox;
+	@FindBy(id="pwdInput") WebElement passwordTextbox;
 	@FindBy(id="loginbtn") WebElement signInButton;
+	@FindBy(xpath="//input[@value='Continue']") WebElement continueButton;
+	@FindBy(xpath="//input[@value='START SHOPPING']") WebElement startShoppingButton;
+	
 	
 	// Constructor
 	public SignInPage(WebDriver driver) {
@@ -35,5 +38,13 @@ public class SignInPage extends ParentPage {
 	
 	public void clickSignInButton() {
 		click(signInButton);
+	}
+	
+	public void clickContinueButton() {
+		click(continueButton);
+	}
+	
+	public void clickStartShoppingButton() {
+		click(startShoppingButton);
 	}
 }
