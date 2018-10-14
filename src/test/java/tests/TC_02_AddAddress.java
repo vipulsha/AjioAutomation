@@ -16,10 +16,10 @@ public class TC_02_AddAddress extends ParentTest {
 	@BeforeMethod
 	public void setUp() {
 		homePage = new HomePage(driver);
-		homePage.signIn("vipul@mailinator.com", "test@123");
+		homePage.signIn(getData("emailId"), getData("password"));
 		userHomePage = new UserHomePage(driver);
 		String welComeMessage = userHomePage.getWelComeMessage();
-		String userName = "Vipul";
+		String userName = getData("userName");
 		Assert.assertTrue(welComeMessage.contains(userName), "Failed: User is not logged in");
 	}
 
@@ -29,14 +29,23 @@ public class TC_02_AddAddress extends ParentTest {
 		MyAccountPage myAccountPage = new MyAccountPage(driver);
 		myAccountPage.clickAddressBook();
 		myAccountPage.clickAddAddressLink();
-		myAccountPage.enterFirstName("Vipul");
-		myAccountPage.enterLastName("Sharma");
-		myAccountPage.enterAddressLine1("Wagholi");
-		myAccountPage.enterState("Maharashtra");
-		myAccountPage.enterDistrict("Pune");
-		myAccountPage.enterPhoneNo("9404560059");
-		myAccountPage.enterPinCode("411014");
+		
+		String firstName = getData("firstName");
+		String lastName = getData("lastName");
+		String addressLine1 = getData("addressLine1");
+		String state = getData("state");
+		String district = getData("district");
+		String phoneNo = getData("phoneNo");
+		String pinCode = getData("pinCode");
+		
+		myAccountPage.enterFirstName(firstName);
+		myAccountPage.enterLastName(lastName);
+		myAccountPage.enterAddressLine1(addressLine1);
+		myAccountPage.enterState(state);
+		myAccountPage.enterDistrict(district);
+		myAccountPage.enterPhoneNo(phoneNo);
+		myAccountPage.enterPinCode(pinCode);
 		myAccountPage.clickSaveButton();
-		Assert.assertTrue(myAccountPage.isAddressPresent("Vipul", "Sharma", "Wagholi", "411014", "Pune", "Maharashtra", "Work"), "Failed: Address not present.");
+		Assert.assertTrue(myAccountPage.isAddressPresent(firstName, lastName, addressLine1, pinCode, district, state), "Failed: Address not present.");
 	}
 }

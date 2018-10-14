@@ -11,10 +11,10 @@ public class TC_01_SignInTest extends ParentTest {
 	@Test
 	public void signInTest() {
 		HomePage homePage = new HomePage(driver);
-		homePage.signIn("vipul@mailinator.com", "test@123");
+		homePage.signIn(getData("emailId"), getData("password"));
 		UserHomePage userHomePage = new UserHomePage(driver);
 		String welComeMessage = userHomePage.getWelComeMessage();
-		String userName = "Vipul";
+		String userName = getData("userName");
 		Assert.assertTrue(welComeMessage.contains(userName), "Failed: User is not logged in");
 	}
 }

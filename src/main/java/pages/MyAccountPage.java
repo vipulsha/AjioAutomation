@@ -118,7 +118,7 @@ public class MyAccountPage extends ParentPage {
 	}
 
 	public boolean isAddressPresent(String firstName,String lastName, 
-			String addressLine1,String pinCode,String district,String state,String addressType) {
+			String addressLine1,String pinCode,String district,String state) {
 		// Get all address elements
 		List<WebElement> addresses = findElements(By.xpath(ADDRESSES_XPATH));
 
