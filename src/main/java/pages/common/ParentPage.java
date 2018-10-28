@@ -14,15 +14,25 @@ public class ParentPage {
 	WebDriver driver;
 	private static final int TIMEOUTS = 30;
 	
+	// ParentPage Constuctor
 	public ParentPage(WebDriver driver) {
 		this.driver = driver;
 		wait = new WebDriverWait(driver, TIMEOUTS);
 	}
 	
+	/**
+	 * New message
+	 * @param element
+	 */
 	public void click(Object element) {
 		waitForElementToBeClickable(element).click();
 	}
 	
+	/**
+	 * New message
+	 * @param element
+	 * @param text
+	 */
 	public void enterText(Object element, String text) {
 		WebElement e = waitForElementToBeVisible(element);
 //		e.clear();
