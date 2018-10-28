@@ -51,6 +51,11 @@ public class ParentTest {
 		}
 	}
 	
+	/**
+	 * Method to get data from properties file
+	 * @param key
+	 * @return
+	 */
 	public String getData(String key) {
 		return properties.get(key).toString();
 	}
