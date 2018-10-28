@@ -29,8 +29,8 @@ public class ParentPage {
 	
 	/**
 	 * Method to enter text in a element
-	 * @param element
-	 * @param text
+	 * @param element - web element where you want to enter text
+	 * @param text - the text you want to enter
 	 */
 	public void enterText(Object element, String text) {
 		WebElement e = waitForElementToBeVisible(element);
