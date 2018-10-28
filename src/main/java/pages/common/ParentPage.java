@@ -21,7 +21,7 @@ public class ParentPage {
 	}
 	
 	/**
-	 * New message
+	 * Method to click on element
 	 * @param element
 	 */
 	public void click(Object element) {
@@ -29,9 +29,9 @@ public class ParentPage {
 	}
 	
 	/**
-	 * New message
-	 * @param element
-	 * @param text
+	 * Method to enter text in a element
+	 * @param element - web element where you want to enter text
+	 * @param text - the text you want to enter
 	 */
 	public void enterText(Object element, String text) {
 		WebElement e = waitForElementToBeVisible(element);
