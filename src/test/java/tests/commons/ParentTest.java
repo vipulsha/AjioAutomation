@@ -27,12 +27,12 @@ public class ParentTest {
 	@BeforeClass
 	public void parentSetUp() throws MalformedURLException {
 		System.setProperty("webdriver.chrome.driver", "E:\\Software\\chromedriver.exe");
-//		driver = new ChromeDriver();
+		driver = new ChromeDriver();
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setBrowserName("chrome");
 		capabilities.setPlatform(Platform.WINDOWS);
 		capabilities.setJavascriptEnabled(true);
-		driver = new RemoteWebDriver(new URL("http://192.168.0.3:4444/wd/hub"), capabilities);
+//		driver = new RemoteWebDriver(new URL("http://192.168.0.3:4444/wd/hub"), capabilities);
 		driver.manage().window().maximize();
 		driver.get("https://www.ajio.com");
 	}
