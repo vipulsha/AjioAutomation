@@ -26,7 +26,14 @@ public class ParentTest {
 	
 	@BeforeClass
 	public void parentSetUp() throws MalformedURLException {
-		System.setProperty("webdriver.chrome.driver", "E:\\Software\\chromedriver.exe");
+		
+		String os = System.getProperty("os.name");
+		if (os.toUpperCase().contains("WINDOWS")) {
+			System.setProperty("webdriver.chrome.driver", "C:\\Drivers\\chromedriver.exe");	
+		} else {
+			System.setProperty("webdriver.chrome.driver", "/home/vf-root/AllDrivers/chromedriver");
+		}
+		
 		driver = new ChromeDriver();
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setBrowserName("chrome");
