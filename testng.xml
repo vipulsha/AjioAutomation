@@ -6,12 +6,12 @@
 			<class name="tests.TC_01_SignInTest" />
 		</classes>
 	</test> <!-- Test -->
-	<test thread-count="5" name="Test2">
+<!-- 	<test thread-count="5" name="Test2">
 		<classes>
 			<class name="tests.TC_02_AddAddress" />
 		</classes>
-	</test> <!-- Test -->
-<!-- 	<test thread-count="5" name="Test3">
+	</test> Test
+ --><!-- 	<test thread-count="5" name="Test3">
 		<classes>
 			<class name="tests.TC_03_CheckoutProductWithoutLogin" />
 		</classes>
