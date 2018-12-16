@@ -24,7 +24,7 @@ public class TC_01_SignInTest extends ParentTest {
 			String userName = getData("userName");
 			Assert.assertTrue(welComeMessage.contains(userName), "Failed: User is not logged in");	
 		} catch (Throwable e) {
-			ATUReports.add("Failed", LogAs.FAILED, new CaptureScreen(ScreenshotOf.BROWSER_PAGE));
+			ATUReports.add("Failed", LogAs.FAILED, new CaptureScreen(ScreenshotOf.DESKTOP));
 		}
 	}
 }
