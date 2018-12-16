@@ -53,12 +53,12 @@ public class ParentTest {
 			capabilities.setBrowserName("chrome");
 			break;
 		case "FF":
-			driver = new FirefoxDriver();
 			if (os.toUpperCase().contains("WINDOWS")) {
 				System.setProperty("webdriver.gecko.driver", "C:\\Drivers\\geckodriver.exe");	
 			} else {
 				System.setProperty("webdriver.gecko.driver", "/home/vf-root/AllDrivers/geckodriver");
 			}
+			driver = new FirefoxDriver();
 			capabilities.setBrowserName("firefox");
 			break;
 		case "IE":
