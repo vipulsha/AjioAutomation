@@ -2,6 +2,8 @@ package tests;
 
 import org.testng.annotations.Test;
 
+import atu.testng.reports.ATUReports;
+import atu.testng.reports.utils.Utils;
 import pages.CategoryHomePage;
 import pages.CheckoutPage;
 import pages.HomePage;
@@ -14,6 +16,7 @@ public class TC_03_CheckoutProductWithoutLogin extends ParentTest {
 	
 	@Test
 	public void verifyProductCheckoutWithoutLogin() {
+		ATUReports.setAuthorInfo("Santosh", Utils.getCurrentTime(),"1.0");
 		HomePage homePage = new HomePage(driver);
 		CategoryHomePage categoryHomePage = homePage.clickOnCategory(getData("category"));
 		SearchResultsPage searchResultsPage = categoryHomePage.searchProduct(getData("searchCriteria"));

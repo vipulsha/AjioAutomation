@@ -5,6 +5,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import atu.testng.reports.ATUReports;
+import atu.testng.reports.logging.LogAs;
 import pages.common.ParentPage;
 
 public class UserHomePage extends ParentPage {
@@ -32,9 +34,11 @@ public class UserHomePage extends ParentPage {
 	
 	public void clickMyAccountLink() {
 		click(myAccountLink);
+		ATUReports.add("Clicked on My Account link", LogAs.PASSED, null);
 	}
 	
 	public void clickSignOutLink() {
 		click(signOutLink);
+		ATUReports.add("Clicked on Signout link", LogAs.PASSED, null);
 	}
 }

@@ -3,6 +3,8 @@ package tests;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
+import atu.testng.reports.ATUReports;
+import atu.testng.reports.utils.Utils;
 import pages.HomePage;
 import pages.UserHomePage;
 import tests.commons.ParentTest;
@@ -10,6 +12,8 @@ import tests.commons.ParentTest;
 public class TC_01_SignInTest extends ParentTest {
 	@Test
 	public void signInTest() {
+		ATUReports.setAuthorInfo("Vipul Sharma", Utils.getCurrentTime(),"1.0");
+		
 		HomePage homePage = new HomePage(driver);
 		homePage.signIn(getData("emailId"), getData("password"));
 		UserHomePage userHomePage = new UserHomePage(driver);

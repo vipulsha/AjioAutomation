@@ -4,6 +4,8 @@ import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import atu.testng.reports.ATUReports;
+import atu.testng.reports.utils.Utils;
 import pages.HomePage;
 import pages.MyAccountPage;
 import pages.UserHomePage;
@@ -25,6 +27,7 @@ public class TC_02_AddAddress extends ParentTest {
 
 	@Test
 	public void verifyAddingAddress() {
+		ATUReports.setAuthorInfo("Pallavi", Utils.getCurrentTime(),"1.0");
 		userHomePage.clickMyAccountLink();
 		MyAccountPage myAccountPage = new MyAccountPage(driver);
 		myAccountPage.clickAddressBook();

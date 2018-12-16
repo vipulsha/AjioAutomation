@@ -6,6 +6,8 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import atu.testng.reports.ATUReports;
+import atu.testng.reports.logging.LogAs;
 import pages.common.ParentPage;
 
 public class HomePage extends ParentPage {
@@ -25,6 +27,7 @@ public class HomePage extends ParentPage {
 	// Page functions ==> Member functions
 	public void clickSignInJoinAjioLink() {
 		click(signInJoinAjioLink);
+		ATUReports.add("Clicked on SignIn Ajio Link", LogAs.PASSED, null);
 	}
 	
 /*	public void clickRegistrationButton() {

@@ -20,28 +20,32 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 
+import atu.testng.reports.ATUReports;
+
 public class ParentTest {
 	public RemoteWebDriver driver;
 	private Properties properties = null;
-	
+
+	{
+		System.setProperty("atu.reporter.config", System.getProperty("user.dir")+"\\ATUConfig\\atu.properties");
+	}
+
 	@BeforeClass
 	public void parentSetUp() throws MalformedURLException {
-
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		String os = System.getProperty("os.name");
-		
-		
+
 		// Code to check which browser is selected on Jenkins?
 		String browser = System.getenv("Browser").toUpperCase();
 		System.out.println("Selected browser: "+browser);
-		
+
 		// Set platform
 		if (os.toUpperCase().contains("WINDOWS")) {
 			capabilities.setPlatform(Platform.WINDOWS);
 		} else {
 			capabilities.setPlatform(Platform.LINUX);
 		}
-		
+
 		switch (browser) {
 		case "CHROME":
 			if (os.toUpperCase().contains("WINDOWS")) {
@@ -68,11 +72,12 @@ public class ParentTest {
 			System.exit(0);
 		}
 		capabilities.setJavascriptEnabled(true);
-//		driver = new RemoteWebDriver(new URL("http://192.168.0.3:4444/wd/hub"), capabilities);
+		ATUReports.setWebDriver(driver);
+		//		driver = new RemoteWebDriver(new URL("http://192.168.0.3:4444/wd/hub"), capabilities);
 		driver.manage().window().maximize();
 		driver.get("https://www.ajio.com");
 	}
-	
+
 	@BeforeMethod
 	public void parentBeforeMethod(Method method) {
 		String testName = method.getName();
@@ -86,7 +91,7 @@ public class ParentTest {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Method to get data from properties file
 	 * @param key
@@ -95,7 +100,7 @@ public class ParentTest {
 	public String getData(String key) {
 		return properties.get(key).toString();
 	}
-	
+
 	@AfterClass
 	public void parentTearDown() {
 		driver.quit();
