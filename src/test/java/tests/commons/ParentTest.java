@@ -26,22 +26,47 @@ public class ParentTest {
 	
 	@BeforeClass
 	public void parentSetUp() throws MalformedURLException {
-		
+
+		DesiredCapabilities capabilities = new DesiredCapabilities();
 		String os = System.getProperty("os.name");
-		if (os.toUpperCase().contains("WINDOWS")) {
-			System.setProperty("webdriver.chrome.driver", "C:\\Drivers\\chromedriver.exe");	
-		} else {
-			System.setProperty("webdriver.chrome.driver", "/home/vf-root/AllDrivers/chromedriver");
-		}
+		
 		
 		// Code to check which browser is selected on Jenkins?
-		String browser = System.getenv("Browser");
+		String browser = System.getenv("Browser").toUpperCase();
 		System.out.println("Selected browser: "+browser);
 		
-		driver = new ChromeDriver();
-		DesiredCapabilities capabilities = new DesiredCapabilities();
-		capabilities.setBrowserName("chrome");
-		capabilities.setPlatform(Platform.WINDOWS);
+		// Set platform
+		if (os.toUpperCase().contains("WINDOWS")) {
+			capabilities.setPlatform(Platform.WINDOWS);
+		} else {
+			capabilities.setPlatform(Platform.LINUX);
+		}
+		
+		switch (browser) {
+		case "CHROME":
+			if (os.toUpperCase().contains("WINDOWS")) {
+				System.setProperty("webdriver.chrome.driver", "C:\\Drivers\\chromedriver.exe");	
+			} else {
+				System.setProperty("webdriver.chrome.driver", "/home/vf-root/AllDrivers/chromedriver");
+			}
+			driver = new ChromeDriver();
+			capabilities.setBrowserName("chrome");
+			break;
+		case "FF":
+			driver = new FirefoxDriver();
+			if (os.toUpperCase().contains("WINDOWS")) {
+				System.setProperty("webdriver.firefox.driver", "C:\\Drivers\\geckodriver.exe");	
+			} else {
+				System.setProperty("webdriver.firefox.driver", "/home/vf-root/AllDrivers/geckodriver");
+			}
+			capabilities.setBrowserName("firefox");
+			break;
+		case "IE":
+			break;
+		default:
+			System.out.println("Incorrect browser selected");
+			System.exit(0);
+		}
 		capabilities.setJavascriptEnabled(true);
 //		driver = new RemoteWebDriver(new URL("http://192.168.0.3:4444/wd/hub"), capabilities);
 		driver.manage().window().maximize();
