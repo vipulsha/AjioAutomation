@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class ParentPage {
 	WebDriverWait wait = null;
 	WebDriver driver;
-	private static final int TIMEOUTS = 30;
+	private static final int TIMEOUTS = 20;
 	
 	// ParentPage Constuctor
 	public ParentPage(WebDriver driver) {
