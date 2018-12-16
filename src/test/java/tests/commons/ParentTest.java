@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +28,7 @@ public class ParentTest {
 	private Properties properties = null;
 
 	{
-		System.setProperty("atu.reporter.config", System.getProperty("user.dir")+"\\ATUConfig\\atu.properties");
+		System.setProperty("atu.reporter.config", Paths.get(".").toAbsolutePath().normalize().toString()+"\\ATUConfig\\atu.properties");
 	}
 
 	@BeforeClass
