@@ -34,6 +34,10 @@ public class ParentTest {
 			System.setProperty("webdriver.chrome.driver", "/home/vf-root/AllDrivers/chromedriver");
 		}
 		
+		// Code to check which browser is selected on Jenkins?
+		String browser = System.getenv("Browser");
+		System.out.println("Selected browser: "+browser);
+		
 		driver = new ChromeDriver();
 		DesiredCapabilities capabilities = new DesiredCapabilities();
 		capabilities.setBrowserName("chrome");
